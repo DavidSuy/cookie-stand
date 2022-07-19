@@ -45,12 +45,12 @@ let seattle = {
     let h2 = document.createElement("h2");
     h2.textContent = this.location;
     parentEl.appendChild(h2);
+    let ol = document.createElement("ol");
+    parentEl.appendChild(ol);
     for (let i = 0; i < this.cookiesPurchPerHour.length; i++) {
-      let ol = document.createElement("ol");
       let li = document.createElement("li");
       li.textContent = this.cookiesPurchPerHour[i];
-      parentEl.appendChild(ol);
-      parentEl.appendChild(li);
+      ol.appendChild(li);
     }
   },
   render: function () {
