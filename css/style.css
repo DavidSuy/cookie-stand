@@ -3,11 +3,11 @@
 }
 
 header {
-  background-color: lightcyan;
+  background-color: #8b610e;
 }
 
 body {
-  background-color: rgb(243, 252, 252);
+  background-color: tan
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
@@ -15,8 +15,8 @@ h1 {
   font-size: 3rem;
   /*font-style: italic;*/
   padding: 1rem;
-  color:  rgb(112, 159, 165);
-  border-bottom: 10px double rgb(112, 159, 165);
+  color: pink;
+  border-bottom: 10px double pink;
 }
 
 main {
@@ -25,25 +25,26 @@ main {
 }
 
 article {
-  border: 1px solid rgb(112, 159, 165);
+  border: 1px solid pink;
   padding: 1rem;
   margin: 1rem;
 }
 
 h2 {
-  color: rgb(112, 159, 165);
+  /* color: pink; */
   font-size: 1.2rem;
   text-transform: uppercase;
   margin-bottom: 1rem;
 }
 
 h3 {
-  color: rgb(112, 159, 165);
+  /* color: pink; */
   font-size: 2rem;
   margin-bottom: 1rem;
 }
 
 ul {
+  colur
   margin-left: 1rem;
   list-style: square;
   margin-bottom: 1rem;
