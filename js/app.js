@@ -1,65 +1,9 @@
 "use strict ";
-
-// create separate JS objects for each shop locations
-// Seattle
-// let seattle = {
-//   location: "Seattle",
-//   min: 23,
-//   max: 65,
-//   avgCookie: 6.3,
-//   openHours: 6,
-//   closeHours: 20,
-//   cookiesPurchPerHour: [],
-//   genRandCustPerHour: function () {
-//     return Math.floor(Math.random() * (this.max - this.min + 1) + this.min);
-//   },
-//   calcCookiesPurchPerHour: function () {
-//     let arr = [];
-//     let totalcookie = 0;
-//     for (let i = this.openHours; i < this.closeHours; i++) {
-//       let hourlyCookieAvg = Math.ceil(
-//         this.genRandCustPerHour() * this.avgCookie
-//       );
-//       if (i < 12) {
-//         arr.push(`${i}am: ${hourlyCookieAvg} cookies`);
-//         totalcookie += hourlyCookieAvg;
-//       } else if (i === 12) {
-//         arr.push(`${i}pm: ${hourlyCookieAvg} cookies`);
-//         totalcookie += hourlyCookieAvg;
-//       } else if (i > 12) {
-//         arr.push(`${i - 12}pm: ${hourlyCookieAvg} cookies`);
-//         totalcookie += hourlyCookieAvg;
-//       } else {
-//         console.log(
-//           "Please pass in the hours open and hours close when calling function."
-//         );
-//       }
-//     }
-//     arr.push(`Total: ${totalcookie}`);
-//     this.cookiesPurchPerHour = arr;
-//     return arr;
-//   },
-//   genHtmlEl: function () {
-//     this.calcCookiesPurchPerHour();
-//     let parentEl = document.getElementById("sales");
-//     let h2 = document.createElement("h2");
-//     h2.textContent = this.location;
-//     parentEl.appendChild(h2);
-//     let ol = document.createElement("ol");
-//     parentEl.appendChild(ol);
-//     for (let i = 0; i < this.cookiesPurchPerHour.length; i++) {
-//       let li = document.createElement("li");
-//       li.textContent = this.cookiesPurchPerHour[i];
-//       ol.appendChild(li);
-//     }
-//   },
-//   render: function () {
-//     this.genHtmlEl();
-//   },
-// };
-
-// Render Location
-// seattle.render();
+// DOM Element
+let salesTable = document.getElementById("salesTable");
+let thead = document.createElement("thead");
+let tbody = document.createElement("tbody");
+let stores = [];
 
 // Store constructor
 function Store(
@@ -79,6 +23,12 @@ function Store(
   this.hoursOfOperations = [];
   this.cookiesPurchPerHourArr = [];
 
+  this.render = function () {
+    this.calCookiesPurchPerHour();
+
+    this.renderTable();
+  };
+
   this.genHoursOfOperations = function () {
     for (let i = hoursOpen; i <= hoursClosed; i++) {
       if (i < 12 && i > 0) {
@@ -95,6 +45,7 @@ function Store(
     let totalcookie = 0;
 
     this.genHoursOfOperations();
+    this.cookiesPurchPerHourArr.push(this.location);
 
     for (let i = 0; i < this.hoursOfOperations.length; i++) {
       let randomCustPerHour = function () {
@@ -112,88 +63,64 @@ function Store(
       totalcookie += hourlyCookieAvg;
     }
     this.cookiesPurchPerHourArr.push(`Total: ${totalcookie}`);
-    console.log(this.cookiesPurchPerHourArr);
+    stores.push(this.cookiesPurchPerHourArr);
   };
 
-  this.renderList = function (table) {
-    let tbody = document.createElement("tbody");
-    let tr = document.createElement("tr");
+  this.renderTable = function () {
+    ////////////////////////// render Table Header ///////////////////////
+    let trow = document.createElement("tr");
 
-    table.appendChild(tbody);
+    // Build Header if don't yet exist
+    if (thead.children.length === 0) {
+      salesTable.appendChild(thead);
+      thead.appendChild(trow);
+
+      // Instert Store Location header
+      let storeNameHeader = document.createElement("th");
+      storeNameHeader.textContent = "Store Location";
+      trow.appendChild(storeNameHeader);
+
+      // Generate headers
+      for (let i = 0; i < this.hoursOfOperations.length; i++) {
+        let th = document.createElement("th");
+        th.textContent = `${this.hoursOfOperations[i]}`;
+        trow.appendChild(th);
+      }
+
+      // Insert Daily Location Total header
+      let dailyLocTotal = document.createElement("th");
+      dailyLocTotal.textContent = "Daily Location Total";
+      trow.appendChild(dailyLocTotal);
+
+      ////////////////////// Render Table Body ////////////////////////////
+      salesTable.appendChild(tbody);
+    }
+
+    // Generate Table Body Data
+
+    let tr = document.createElement("tr");
     tbody.appendChild(tr);
-    let storeLoc = document.createElement("td");
-    storeLoc.textContent = location;
-    tr.appendChild(storeLoc);
+
     for (let i = 0; i < this.cookiesPurchPerHourArr.length; i++) {
       let td = document.createElement("td");
       td.textContent = this.cookiesPurchPerHourArr[i];
       tr.appendChild(td);
     }
-  };
 
-  this.renderTable = function (parent) {
-    // let table = 0;
-    let art = document.createElement("article");
-    console.log(parent);
-    let table = document.createElement("table");
-    if (parent) {
-      table = parent;
-      console.log("no parent");
-    } else {
-      console.log("we in it");
-      console.log(table);
-    }
-    art.appendChild(table);
-    let thead = document.createElement("thead");
-    let trow = document.createElement("tr");
-
-    let cookieTablesContainer = document.getElementById("xxx");
-    cookieTablesContainer.appendChild(table);
-
-    art.appendChild(table);
-    table.appendChild(thead);
-    thead.appendChild(trow);
-    let storeNameHeader = document.createElement("th");
-    storeNameHeader.textContent = "Store Location";
-    trow.appendChild(storeNameHeader);
-
-    for (let i = 0; i < this.hoursOfOperations.length; i++) {
-      let th = document.createElement("th");
-      th.textContent = `${this.hoursOfOperations[i]}`;
-      trow.appendChild(th);
-    }
-
-    let dailyLocTotal = document.createElement("th");
-    dailyLocTotal.textContent = "Daily Location Total";
-    trow.appendChild(dailyLocTotal);
-
-    this.renderList(table);
-  };
-
-  this.render = function (table) {
-    this.calCookiesPurchPerHour();
-
-    let xxx = document.getElementById("xxx");
-    console.log(xxx);
-
-    // let h2 = document.createElement("h2");
-    // let div = document.createElement("div");
-
-    // cookieTablesContainer.appendChild(art);
-    if (!table) {
-      // h2.textContent = "Seattle";
-      // art.appendChild(h2);
-      this.renderTable();
-    } else {
-      this.renderTable(table);
-    }
+    // Insert Daily Location Total data
   };
 }
 
 let seattle = new Store("Seattle", 23, 65, 6.3);
-let tokyo = new Store("Tokyo", 23, 65, 6.3);
+let tokyo = new Store("Tokyo", 3, 24, 1.2);
+let dubai = new Store("Dubai", 11, 38, 3.7);
+let paris = new Store("Paris", 20, 38, 2.3);
+let lima = new Store("Lima", 2, 16, 4.6);
 
 seattle.render();
 tokyo.render();
+dubai.render();
+paris.render();
+lima.render();
 
-// console.log(seattle);
+console.log(stores);
