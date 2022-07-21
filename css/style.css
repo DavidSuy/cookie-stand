@@ -1,69 +1,52 @@
 * {
   box-sizing: border-box;
 }
-
 header {
-  background-color: #8b610e;
+  background-color: darkgray;
+  margin-bottom: 30px;
 }
-
-body {
-  background-color: tan
-  font-family: Georgia, 'Times New Roman', Times, serif;
+header nav {
+  width: 960px;
+  margin: auto;
+  display: flex;
 }
-
-h1 {
-  font-size: 3rem;
-  /*font-style: italic;*/
-  padding: 1rem;
-  color: pink;
-  border-bottom: 10px double pink;
-}
-
 main {
-  width: 80%;
-  margin: 3rem auto;
+  width: 960px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
-
-article {
-  border: 1px solid pink;
-  padding: 1rem;
-  margin: 1rem;
+main img {
+  margin-bottom: 30px;
 }
-
-h2 {
-  /* color: pink; */
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  margin-bottom: 1rem;
-}
-
-h3 {
-  /* color: pink; */
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-ul {
-  colur
-  margin-left: 1rem;
-  list-style: square;
-  margin-bottom: 1rem;
-}
-
-p {
-  margin-bottom: 1rem;
-}
-
 footer {
-  padding: 1rem;
+  background-color: gray;
+  height: 50px;
 }
-
-a {
-  color: rgb(112, 159, 165);
+ul {
+  display: flex;
+  margin: auto;
 }
-
-/* .test-class {
- border: 2px solid purple;
+li {
+  width: 150px;
+}
+article {
+  background-color: lightgray;
+  height: 400px;
+  width: 450px;
+}
+article > h2 {
+  margin: 10px;
+}
+article > p {
+  margin: 10px;
+}
+article > div { 
+  background-color: blue;
+  height: 25px;
+  width: 100px;
+  margin: 10px;
 } */
 
 /* TABLE STYLES */
@@ -81,5 +64,5 @@ thead th {
   font-weight: bold;
 }
 tfoot {
-  background-color: rgba(112, 159, 165, .1);
+  background-color: grey;
 }
