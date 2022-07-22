@@ -36,13 +36,13 @@ article {
   height: 400px;
   width: 450px;
 }
-article > h2 {
+article  h2 {
   margin: 10px;
 }
-article > p {
+article  p {
   margin: 10px;
 }
-article > div { 
+article  div { 
   background-color: blue;
   height: 25px;
   width: 100px;
@@ -65,4 +65,32 @@ thead th {
 }
 tfoot {
   background-color: grey;
+}
+
+/* -- Form styles -- */
+form {
+  width: 100%;
+}
+fieldset {
+  background-color: brown;
+  border: 1px solid pink;
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+legend {
+  color: pink;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+textarea,
+label,
+input {
+  display: block;
+}
+
+textarea,
+input {
+  margin-bottom: 1rem;
 }

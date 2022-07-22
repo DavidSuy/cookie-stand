@@ -4,33 +4,31 @@ let salesTable = document.getElementById("salesTable");
 let thead = document.createElement("thead");
 let tbody = document.createElement("tbody");
 let stores = [];
+// let hoursOfOperations = [];
+salesTable.appendChild(tbody);
 
 // Store constructor
-function Store(
-  location,
-  minHourlyCookies,
-  maxHourlyCookies,
-  avgCookiesPurchPerCust,
-  hoursOpen = 6,
-  hoursClosed = 20
-) {
+function Store(location, custMin, custMax, avgCookiesPurchPerCust) {
   this.location = location;
-  this.minHourlyCookies = minHourlyCookies;
-  this.maxHourlyCookies = maxHourlyCookies;
-  this.avgCookiesPurchPerCust;
-  this.hoursOpen = hoursOpen;
-  this.hoursClosed = hoursClosed;
+  this.custMin = custMin;
+  this.custMax = custMax;
+  this.avgCookiesPurchPerCust = avgCookiesPurchPerCust;
+  this.hoursOpen = 6;
+  this.hoursClosed = 20;
   this.hoursOfOperations = [];
   this.cookiesPurchPerHourArr = [];
 
   this.render = function () {
+    console.log(this.custmax);
     this.calCookiesPurchPerHour();
+    console.log(this.cookiesPurchPerHourArr);
+    // console.log(this.hoursOfOperations);
 
     this.renderTable();
   };
 
   this.genHoursOfOperations = function () {
-    for (let i = hoursOpen; i <= hoursClosed; i++) {
+    for (let i = this.hoursOpen; i <= this.hoursClosed; i++) {
       if (i < 12 && i > 0) {
         this.hoursOfOperations.push(`${i}am`);
       } else if (i === 12) {
@@ -49,11 +47,10 @@ function Store(
 
     for (let i = 0; i < this.hoursOfOperations.length; i++) {
       let randomCustPerHour = function () {
-        return Math.floor(
-          Math.random() * (maxHourlyCookies - minHourlyCookies + 1) +
-            minHourlyCookies
-        );
+        return Math.floor(Math.random() * (custMax - custMin + 1) + custMin);
       };
+
+      console.log(avgCookiesPurchPerCust);
 
       let hourlyCookieAvg = Math.ceil(
         randomCustPerHour() * avgCookiesPurchPerCust
@@ -63,38 +60,36 @@ function Store(
       totalcookie += hourlyCookieAvg;
     }
     this.cookiesPurchPerHourArr.push(`Total: ${totalcookie}`);
-    stores.push(this.cookiesPurchPerHourArr);
+    // stores.push(this.cookiesPurchPerHourArr);
   };
 
   this.renderTable = function () {
     ////////////////////////// render Table Header ///////////////////////
-    let trow = document.createElement("tr");
 
     // Build Header if don't yet exist
-    if (thead.children.length === 0) {
-      salesTable.appendChild(thead);
-      thead.appendChild(trow);
+    // if (thead.children.length === 0) {
+    //   salesTable.appendChild(thead);
+    //   thead.appendChild(trow);
 
-      // Instert Store Location header
-      let storeNameHeader = document.createElement("th");
-      storeNameHeader.textContent = "Store Location";
-      trow.appendChild(storeNameHeader);
+    //   // Instert Store Location header
+    //   let storeNameHeader = document.createElement("th");
+    //   storeNameHeader.textContent = "Store Location";
+    //   trow.appendChild(storeNameHeader);
 
-      // Generate headers
-      for (let i = 0; i < this.hoursOfOperations.length; i++) {
-        let th = document.createElement("th");
-        th.textContent = `${this.hoursOfOperations[i]}`;
-        trow.appendChild(th);
-      }
+    //   // Generate headers
+    //   for (let i = 0; i < this.hoursOfOperations.length; i++) {
+    //     let th = document.createElement("th");
+    //     th.textContent = `${this.hoursOfOperations[i]}`;
+    //     trow.appendChild(th);
+    //   }
 
-      // Insert Daily Location Total header
-      let dailyLocTotal = document.createElement("th");
-      dailyLocTotal.textContent = "Daily Location Total";
-      trow.appendChild(dailyLocTotal);
+    //   // Insert Daily Location Total header
+    //   let dailyLocTotal = document.createElement("th");
+    //   dailyLocTotal.textContent = "Daily Location Total";
+    //   trow.appendChild(dailyLocTotal);
 
-      ////////////////////// Render Table Body ////////////////////////////
-      salesTable.appendChild(tbody);
-    }
+    // }
+    ////////////////////// Render Table Body ////////////////////////////
 
     // Generate Table Body Data
 
@@ -111,16 +106,77 @@ function Store(
   };
 }
 
-let seattle = new Store("Seattle", 23, 65, 6.3);
-let tokyo = new Store("Tokyo", 3, 24, 1.2);
-let dubai = new Store("Dubai", 11, 38, 3.7);
-let paris = new Store("Paris", 20, 38, 2.3);
-let lima = new Store("Lima", 2, 16, 4.6);
+function renderHeader() {
+  let trow = document.createElement("tr");
+  salesTable.appendChild(thead);
+  thead.appendChild(trow);
 
-seattle.render();
-tokyo.render();
-dubai.render();
-paris.render();
-lima.render();
+  // Insert Store Location header
+  let storeNameHeader = document.createElement("th");
+  storeNameHeader.textContent = "Store Location";
+  trow.appendChild(storeNameHeader);
 
-console.log(stores);
+  // Generate headers
+  for (let i = 0; i < hoursOfOperations.length; i++) {
+    let th = document.createElement("th");
+    th.textContent = `${hoursOfOperations[i]}`;
+    trow.appendChild(th);
+  }
+
+  // Insert Daily Location Total header
+  let dailyLocTotal = document.createElement("th");
+  dailyLocTotal.textContent = "Daily Location Total";
+  trow.appendChild(dailyLocTotal);
+}
+
+// function cookieStandFactory(loc, custMin, custMax, avgCookiePurch) {
+//   let newStore = new Store(loc, custMin, custMax, avgCookiePurch);
+// }
+
+let currentStores = [
+  ["Seattle", 23, 65, 6.3],
+  ["Tokyo", 3, 24, 1.2],
+  ["Dubai", 11, 38, 3.7],
+  ["Paris", 20, 38, 2.3],
+  ["Lima", 2, 16, 4.6],
+];
+
+function genCurrentStores() {
+  for (let i = 0; i < currentStores.length; i++) {
+    stores.push(
+      new Store(
+        currentStores[i][0],
+        currentStores[i][1],
+        currentStores[i][2],
+        currentStores[i][3]
+      )
+    );
+  }
+}
+
+genCurrentStores();
+
+function renderAll() {
+  for (let i = 0; i < stores.length; i++) {
+    console.log(stores[i]);
+    stores[i].render();
+  }
+}
+
+renderAll();
+
+// Add new cookie stand
+
+let form = document.querySelector("form");
+
+function handleSubmit(event) {
+  event.preventDefault();
+  let loc = event.target.location.value;
+  let custMin = event.target.custMin.value;
+  let custMax = event.target.custMax.value;
+  let avgCookiePurch = event.target.avgCookiePurch.value;
+
+  new Store(loc, custMin, custMax, avgCookiePurch);
+}
+
+form.addEventListener("submit", handleSubmit);
