@@ -1,14 +1,26 @@
 * {
   box-sizing: border-box;
 }
+body {
+  background-color: bisque;
+}
 header {
   background-color: darkgray;
   margin-bottom: 30px;
 }
 header nav {
   width: 960px;
+  background-color:saddlebrown;
   margin: auto;
   display: flex;
+}
+nav a {
+  font-size: 1.5rem;
+  color: salmon;
+}
+
+nav a:hover {
+  color: white;
 }
 main {
   width: 960px;
@@ -21,8 +33,10 @@ main img {
   margin-bottom: 30px;
 }
 footer {
-  background-color: gray;
+  background-color: saddlebrown;
   height: 50px;
+  text-align: center;
+  padding-top: 15px;
 }
 ul {
   display: flex;
@@ -32,9 +46,9 @@ li {
   width: 150px;
 }
 article {
-  background-color: lightgray;
-  height: 400px;
-  width: 450px;
+  /* background-color: lightgray; */
+  height: 200px;
+  width: 100%;
 }
 article  h2 {
   margin: 10px;
@@ -43,11 +57,17 @@ article  p {
   margin: 10px;
 }
 article  div { 
-  background-color: blue;
+  border-radius: 5px;
+  background-color: salmon;
+  text-align: center;
   height: 25px;
+  padding-top: 5px;
   width: 100px;
   margin: 10px;
-} */
+} 
+article div:hover {
+  background-color: blue;
+}
 
 /* TABLE STYLES */
 
@@ -68,15 +88,22 @@ tfoot {
 }
 
 /* -- Form styles -- */
-form {
+.form {
+  /* background-color: black; */
+  height: 350px;
   width: 100%;
 }
 fieldset {
   background-color: brown;
   border: 1px solid pink;
-  width: 100%;
+  width: 500px;
+  margin: auto;
   padding: 1rem;
   margin-bottom: 1rem;
+  margin-top: 20px;
+}
+fieldset h1 {
+  color: salmon;
 }
 legend {
   color: pink;
